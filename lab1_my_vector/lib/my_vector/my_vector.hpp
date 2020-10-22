@@ -13,25 +13,31 @@
 template<typename T>
 class my_vector {
 private:
-    std::unique_ptr<T[]> buffer;
-    size_t real_size;
-    size_t real_capacity;
+    std::unique_ptr<T[]> buffer_m;
+    size_t size_m;
+    size_t capacity_m;
 public:
-    my_vector() : buffer(new T[1]), real_size(0), real_capacity(1) {};
+    my_vector() : buffer_m(new T[1]), size_m{0}, capacity_m{1} {};
 
-    [[maybe_unused]] my_vector(std::initializer_list<T> el) : buffer(new T[el.size()]),
-                                                              real_size(el.size()),
-                                                              real_capacity(el.size() * 2) {
+    [[maybe_unused]] explicit my_vector(size_t size, T init_val = T{}) : size_m{size},
+                                                                         capacity_m{size == 0 ? 2 : size} {
+        for (size_t i = 0; i < size; ++i) {
+            buffer_m[i] = init_val;
+        }
+    }
+
+    [[maybe_unused]] my_vector(std::initializer_list<T> el) : buffer_m{new T[el.size()]},
+                                                              size_m{el.size()},
+                                                              capacity_m{el.size() * 2} {
         size_t i = 0;
         for (auto &&entry:el) {
-            buffer[i++] = std::move(entry);
+            buffer_m[i++] = std::move(entry);
         }
     }
 
     ~my_vector() {
-        real_size = 0;
-        real_capacity = 0;
-        buffer.reset();
+        buffer_m.reset();
+        buffer_m = nullptr;
     };
 
     [[maybe_unused]] [[maybe_unused]] size_t size();
@@ -50,11 +56,11 @@ public:
 
     [[maybe_unused]] [[maybe_unused]] void push_back(T &&element);
 
-    [[maybe_unused]] void pop_back(T &&element) {}
+//    [[maybe_unused]] void pop_back(T &&element) {}
+//
+//    [[maybe_unused]] void pop_front(T &&element) {}
 
-    [[maybe_unused]] void pop_front(T &&element) {}
-
-    [[maybe_unused]] void insert(T &element);
+//    [[maybe_unused]] void insert(T &element);
 
     [[nodiscard]] const T *begin() const;
 

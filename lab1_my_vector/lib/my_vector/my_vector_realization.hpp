@@ -12,12 +12,12 @@
 
 template<typename T>
 [[maybe_unused]] size_t my_vector<T>::size() {
-    return real_size;
+    return size_m;
 }
 
 template<typename T>
 [[maybe_unused]] size_t my_vector<T>::capacity() {
-    return real_capacity;
+    return capacity_m;
 }
 
 template<typename T>
@@ -27,68 +27,69 @@ template<typename T>
 
 template<typename T>
 [[maybe_unused]] void my_vector<T>::clear() {
-    buffer.reset();
-    buffer = new T[1];
-    real_size = 0;
-    real_capacity = 1;
+    buffer_m.reset();
+    buffer_m = new T[1];
+    size_m = 0;
+    capacity_m = 1;
 }
 
 template<typename T>
 [[maybe_unused]] void my_vector<T>::reserve(size_t size) {
-    real_size = size;
-    real_capacity = size;
+    capacity_m = size;
     std::unique_ptr<T[]> new_buffer{new T[size]};
-    buffer.swap(new_buffer);
+    buffer_m.swap(new_buffer);
     new_buffer.reset();
 }
 
 template<typename T>
 [[maybe_unused]] T my_vector<T>::front() {
-    return buffer[0];
+    return buffer_m[0];
 }
 
 template<typename T>
 [[maybe_unused]] T my_vector<T>::back() {
-    return buffer[real_size];
+    return buffer_m[size_m];
 }
 
 template<typename T>
 const T &my_vector<T>::operator[](size_t index) {
-    return buffer.get(index);
+    return buffer_m.get(index);
 }
 
 template<typename T>
 [[maybe_unused]] void my_vector<T>::push_back(T &&element) {
-    if (real_size == real_capacity) {
-        std::unique_ptr<T[]> new_buffer{new T[real_size * 2]};
-        real_capacity = real_size * 2;
-        buffer.swap(new_buffer);
+    if (size_m == capacity_m) {
+        capacity_m = size_m * 2;
+        std::unique_ptr<T[]> new_buffer{new T[capacity_m]};
+        buffer_m.swap(new_buffer);
         new_buffer.reset();
     }
-    buffer[real_size++] = std::move(element);
+    buffer_m[size_m++] = std::move(element);
 }
 
-template<typename T>
-[[maybe_unused]] void my_vector<T>::insert(T &element) {}
+//template<typename T>
+//[[maybe_unused]] void my_vector<T>::insert(T &element) {
+//
+//}
 
 template<typename T>
 const T *my_vector<T>::begin() const {
-    return &buffer[0];
+    return &buffer_m[0];
 }
 
 template<typename T>
 T *my_vector<T>::begin() {
-    return &buffer[0];
+    return &buffer_m[0];
 }
 
 template<typename T>
 const T *my_vector<T>::end() const {
-    return &buffer[real_size];
+    return &buffer_m[size_m];
 }
 
 template<typename T>
 T *my_vector<T>::end() {
-    return &buffer[real_size];
+    return &buffer_m[size_m];
 }
 
 #endif //TEST_MY_VECTOR_REALIZATION_H
