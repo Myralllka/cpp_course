@@ -1,4 +1,0 @@
-/home/myralllka/Documents/cpp-template/build/CMakeFiles/rebuild_cache.dir
-/home/myralllka/Documents/cpp-template/build/CMakeFiles/test.analyze.dir
-/home/myralllka/Documents/cpp-template/build/CMakeFiles/edit_cache.dir
-/home/myralllka/Documents/cpp-template/build/CMakeFiles/test.dir
