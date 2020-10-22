@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/myralllka/Documents/cpp-template/build",
+  "command": "/usr/bin/c++ -DBOOST_ALL_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -I/home/myralllka/Documents/cpp-template/inc -O3 -DNDEBUG -Wall -Wextra -Wpedantic -Werror=vla -std=gnu++17 -o CMakeFiles/test.dir/src/main.cpp.o -c /home/myralllka/Documents/cpp-template/src/main.cpp",
+  "file": "/home/myralllka/Documents/cpp-template/src/main.cpp"
+}
+]

@@ -1,0 +1,4 @@
+/home/myralllka/Documents/cpp_course/lab1_ratio/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/myralllka/Documents/cpp_course/lab1_ratio/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/myralllka/Documents/cpp_course/lab1_ratio/cmake-build-debug/CMakeFiles/test.analyze.dir
+/home/myralllka/Documents/cpp_course/lab1_ratio/cmake-build-debug/CMakeFiles/test.dir
