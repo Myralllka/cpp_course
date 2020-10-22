@@ -9,6 +9,7 @@
 #define TEST_MY_VECTOR_REALIZATION_H
 
 #include <iostream>
+#include <cstring>
 
 #include "my_vector.hpp"
 #include "exceptions/out_of_bound_exeption.h"
@@ -32,15 +33,29 @@ template<typename T>
 }
 
 template<typename T>
-[[maybe_unused]] T my_vector<T>::front() {
+[[maybe_unused]] T &my_vector<T>::front() {
     return buffer_m[0];
 }
 
 template<typename T>
-[[maybe_unused]] T my_vector<T>::back() {
-    return buffer_m[size_m];
+[[maybe_unused]] const T &my_vector<T>::front() const {
+    return buffer_m[0];
 }
 
+template<typename T>
+[[maybe_unused]] T &my_vector<T>::back() {
+    return buffer_m[size_m - 1];
+}
+
+template<typename T>
+[[maybe_unused]] const T &my_vector<T>::back() const {
+    return buffer_m[size_m - 1];
+}
+
+template<typename T>
+[[maybe_unused]] bool my_vector<T>::empty() {
+    return size_m == 0;
+}
 
 template<typename T>
 [[maybe_unused]] void my_vector<T>::clear() {
@@ -77,18 +92,18 @@ template<typename T>
 
 
 template<typename T>
-T &my_vector<T>::at(size_t index) {
+[[maybe_unused]] T &my_vector<T>::at(size_t index) {
     if (index < 0 or index > size_m) {
         throw ArrayOutOfBoundsException();
     }
-    return buffer_m[index];;
+    return buffer_m[index];
 }
 
 template<typename T>
-void my_vector<T>::double_capacity_if_bound() {
-    if (size_m == capacity_m) {
+void my_vector<T>::double_capacity_if_bound(size_t i) {
+    if (size_m + i == capacity_m) {
         capacity_m = size_m * 2;
-        std::unique_ptr<T[]> new_buffer = std::make_unique<T[]>(capacity());
+        std::unique_ptr<T[]> new_buffer = std::make_unique<T[]>(capacity_m);
         buffer_m.swap(new_buffer);
     }
 }
@@ -141,31 +156,38 @@ template<typename T>
 
 template<typename T>
 [[maybe_unused]] void my_vector<T>::shrink_to_fit() {
-
+    capacity_m = size_m;
+    std::unique_ptr<T[]> new_buffer = std::make_unique<T[]>(capacity_m);
+    buffer_m.swap(new_buffer);
 }
 
 
 //template<typename T>
-//void my_vector<T>::insert(const T *positin, const T &value) {
-//    if (size_m < capacity_m) {
+//void my_vector<T>::insert(const T *positin, const T &value) {}
 //
+//template<typename T>
+//void my_vector<T>::insert(const T *positin, T &&value) {}
+//
+//template<typename T>
+//void my_vector<T>::insert(const T *positin, const T *begin, const T *end, T &value) {}
+//
+//template<typename T>
+//[[maybe_unused]] void my_vector<T>::insert(size_t position, std::initializer_list<T> elements) {
+//    double_capacity_if_bound(elements.size());
+//    T* new_buffer = new T[size_m - position];
+//    std::memcpy(new_buffer, buffer_m.get() + position, size_m - position);
+//    for (auto &&el:elements) {
+//        buffer_m[position++] = std::move(el);
 //    }
+//    std::memcpy(end(), new_buffer, size_m - position);
+//    delete[] new_buffer;
 //}
-//
-//template<typename T>
-//void my_vector<T>::insert(const T *positin, T &value) {
-//
-//}
-//
-//template<typename T>
-//void my_vector<T>::insert(const T *positin, const T *begin, const T *end, T &value) {
-//
-//}
-//
-//template<typename T>
-//void my_vector<T>::insert(const T *positin, std::initializer_list<T> elements) {
-//
-//}
+
+template<typename T>
+[[maybe_unused]] void my_vector<T>::pop_back() {
+    if (size_m == 0) return;
+    size_m -= 1;
+}
 
 template<>
 [[maybe_unused]] void my_vector<size_t>::print() {
@@ -179,6 +201,12 @@ void my_vector<T>::prt() {
     }
     std::cout << std::endl;
 }
+
+//template<typename T>
+//template<typename ...Args>
+//T *my_vector<T>::emplace_back(Args &... args) {
+//    return nullptr;
+//}
 
 template<>
 [[maybe_unused]] void my_vector<std::string>::print() {

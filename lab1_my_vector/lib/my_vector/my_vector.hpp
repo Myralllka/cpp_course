@@ -19,7 +19,7 @@ private:
 
     void prt();
 
-    void double_capacity_if_bound();
+    void double_capacity_if_bound(size_t i = 0);
 
 public:
     my_vector() : buffer_m(new T[1]), size_m{0}, capacity_m{1} {};
@@ -62,26 +62,34 @@ public:
 
     [[maybe_unused]] [[nodiscard]] size_t max_size() const;
 
-    [[maybe_unused]] T front();
+    [[maybe_unused]] T &front();
 
-    [[maybe_unused]] T back();
+    [[maybe_unused]] T &back();
+
+    [[maybe_unused]] const T &front() const;
+
+    [[maybe_unused]] const T &back() const;
+
+    [[maybe_unused]] bool empty();
 
 // INSERTIONS
+//    template<typename ...Args>
+//    [[maybe_unused]] T *emplace_back(Args &... args);
+
     [[maybe_unused]] void push_back(T &&element);
 
     [[maybe_unused]] void push_back(T &element);
 
 //    [[maybe_unused]] void insert(const T *positin, const T &value);
 //
-//    [[maybe_unused]] void insert(const T *positin, T &value);
+//    [[maybe_unused]] void insert(const T *positin, T &&value);
 //
 //    [[maybe_unused]] void insert(const T *positin, const T *begin, const T *end, T &value);
-//
-//    [[maybe_unused]] void insert(const T *positin, std::initializer_list<T> elements);
 
-//    [[maybe_unused]] void pop_back(T &&element) {}
-//
-//    [[maybe_unused]] void pop_front(T &&element) {}
+    [[maybe_unused]] void insert(size_t position, std::initializer_list<T> elements);
+
+    [[maybe_unused]] void pop_back();
+
 // ITERATORS
     [[nodiscard]] const T *begin() const;
 
@@ -94,16 +102,16 @@ public:
 // OPERATORS
     [[maybe_unused]] const T &operator[](size_t index) const;
 
-    [[maybe_unused]] const T &at(size_t index) const;
-
     [[maybe_unused]] T &operator[](size_t index);
+
+    [[maybe_unused]] const T &at(size_t index) const;
 
     [[maybe_unused]] T &at(size_t index);
 
     [[maybe_unused]] my_vector<T> &operator=(const my_vector &other);
 
 // OTHER
-    [[maybe_unused]] [[maybe_unused]] void clear();
+    [[maybe_unused]] void clear();
 
     [[maybe_unused]] void swap(my_vector<T> other);
 
