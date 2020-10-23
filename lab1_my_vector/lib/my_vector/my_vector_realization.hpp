@@ -69,7 +69,7 @@ template<typename T>
     }
     capacity_m = size;
     std::unique_ptr<T[]> new_buffer = std::make_unique<T[]>(size);
-    buffer_m.swap(new_buffer);
+    buffer_m.reset(new_buffer);
 }
 
 template<typename T>
@@ -102,6 +102,7 @@ template<typename T>
 template<typename T>
 void my_vector<T>::double_capacity_if_bound(size_t i) {
     if (size_m + i == capacity_m) {
+        std::cout << "DOUBLE" << std::endl;
         capacity_m = size_m * 2;
         std::unique_ptr<T[]> new_buffer = std::make_unique<T[]>(capacity_m);
         buffer_m.swap(new_buffer);
@@ -161,27 +162,43 @@ template<typename T>
     buffer_m.swap(new_buffer);
 }
 
+template<typename T>
+[[maybe_unused]] void my_vector<T>::insert([[maybe_unused]] const T *position,
+                                           [[maybe_unused]] const T &value) {
+    insert(position, {value});
+}
 
-//template<typename T>
-//void my_vector<T>::insert(const T *positin, const T &value) {}
-//
-//template<typename T>
-//void my_vector<T>::insert(const T *positin, T &&value) {}
-//
-//template<typename T>
-//void my_vector<T>::insert(const T *positin, const T *begin, const T *end, T &value) {}
-//
-//template<typename T>
-//[[maybe_unused]] void my_vector<T>::insert(size_t position, std::initializer_list<T> elements) {
-//    double_capacity_if_bound(elements.size());
-//    T* new_buffer = new T[size_m - position];
-//    std::memcpy(new_buffer, buffer_m.get() + position, size_m - position);
-//    for (auto &&el:elements) {
-//        buffer_m[position++] = std::move(el);
-//    }
-//    std::memcpy(end(), new_buffer, size_m - position);
-//    delete[] new_buffer;
-//}
+template<typename T>
+[[maybe_unused]] void my_vector<T>::insert([[maybe_unused]] const T *position,
+                                           [[maybe_unused]] T &&value) {
+    insert(position, {std::move(value)});
+}
+
+template<typename T>
+[[maybe_unused]] void my_vector<T>::insert([[maybe_unused]] const T *position,
+                                           [[maybe_unused]] const T *begin,
+                                           [[maybe_unused]] const T *end) {
+    size_t start = position - &buffer_m[0];
+    size_t sz = &buffer_m[size_m] - position;
+    double_capacity_if_bound(end - begin); // at this moment position can be not relevant anymore
+    std::unique_ptr<T[]> tmp_buffer = std::make_unique<T[]>(sz);
+    std::copy(buffer_m.get() + start, buffer_m.get() + size_m, tmp_buffer.get());
+    size_t counter = 0;
+    for (const T *i = begin; i != end; ++i) {
+        buffer_m[start + counter++] = *i;
+    }
+    for (size_t i = 0; i < sz; ++i) {
+        buffer_m[start + (end - begin) + i] = tmp_buffer[i];
+    }
+    size_m += (end - begin);
+    std::cout <<  capacity_m << std::endl;
+}
+
+template<typename T>
+[[maybe_unused]] void my_vector<T>::insert([[maybe_unused]] const T *position,
+                                           [[maybe_unused]] std::initializer_list<T> elements) {
+    insert(position, elements.begin(), elements.end());
+}
 
 template<typename T>
 [[maybe_unused]] void my_vector<T>::pop_back() {

@@ -8,7 +8,9 @@
 #ifndef TEST_MY_VECTOR_H
 #define TEST_MY_VECTOR_H
 
-#include "memory"
+#include <memory>
+#include <cassert>
+#include <iostream>
 
 template<typename T>
 class my_vector {
@@ -19,7 +21,7 @@ private:
 
     void prt();
 
-    void double_capacity_if_bound(size_t i = 0);
+    void double_capacity_if_bound(size_t sz = 0);
 
 public:
     my_vector() : buffer_m(new T[1]), size_m{0}, capacity_m{1} {};
@@ -51,8 +53,8 @@ public:
     }
 
     ~my_vector() {
-        buffer_m.reset();
-        buffer_m = nullptr;
+        buffer_m.release();
+        buffer_m.reset(nullptr);
     };
 
 //GETTERS
@@ -80,13 +82,13 @@ public:
 
     [[maybe_unused]] void push_back(T &element);
 
-//    [[maybe_unused]] void insert(const T *positin, const T &value);
-//
-//    [[maybe_unused]] void insert(const T *positin, T &&value);
-//
-//    [[maybe_unused]] void insert(const T *positin, const T *begin, const T *end, T &value);
+    [[maybe_unused]] void insert(const T *position, const T &value);
 
-    [[maybe_unused]] void insert(size_t position, std::initializer_list<T> elements);
+    [[maybe_unused]] void insert(const T *position, T &&value);
+
+    [[maybe_unused]] void insert(const T *position, const T *begin, const T *end);
+
+    [[maybe_unused]] void insert(const T *position, std::initializer_list<T> elements);
 
     [[maybe_unused]] void pop_back();
 

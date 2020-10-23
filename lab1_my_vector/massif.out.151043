@@ -1,0 +1,145 @@
+desc: (none)
+cmd: ./bin/test
+time_unit: i
+#-----------
+snapshot=0
+#-----------
+time=0
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=1
+#-----------
+time=4918481
+mem_heap_B=72704
+mem_heap_extra_B=8
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=2
+#-----------
+time=4981658
+mem_heap_B=72872
+mem_heap_extra_B=24
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=3
+#-----------
+time=4987519
+mem_heap_B=73000
+mem_heap_extra_B=32
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=4
+#-----------
+time=4989280
+mem_heap_B=73136
+mem_heap_extra_B=48
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=5
+#-----------
+time=4992216
+mem_heap_B=73192
+mem_heap_extra_B=64
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=6
+#-----------
+time=4993780
+mem_heap_B=73320
+mem_heap_extra_B=72
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=7
+#-----------
+time=4998045
+mem_heap_B=73320
+mem_heap_extra_B=72
+mem_stacks_B=0
+heap_tree=detailed
+n2: 73320 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 72704 0x49C845A: pool (eh_alloc.cc:123)
+  n1: 72704 0x49C845A: __static_initialization_and_destruction_0 (eh_alloc.cc:262)
+   n1: 72704 0x49C845A: _GLOBAL__sub_I_eh_alloc.cc (eh_alloc.cc:338)
+    n1: 72704 0x40112DD: call_init.part.0 (in /usr/lib/ld-2.32.so)
+     n1: 72704 0x40113C7: _dl_init (in /usr/lib/ld-2.32.so)
+      n0: 72704 0x40020C9: ??? (in /usr/lib/ld-2.32.so)
+ n0: 616 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=8
+#-----------
+time=4998045
+mem_heap_B=73192
+mem_heap_extra_B=64
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=9
+#-----------
+time=5000605
+mem_heap_B=74216
+mem_heap_extra_B=72
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=10
+#-----------
+time=5017619
+mem_heap_B=74216
+mem_heap_extra_B=72
+mem_stacks_B=0
+heap_tree=peak
+n3: 74216 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 72704 0x49C845A: pool (eh_alloc.cc:123)
+  n1: 72704 0x49C845A: __static_initialization_and_destruction_0 (eh_alloc.cc:262)
+   n1: 72704 0x49C845A: _GLOBAL__sub_I_eh_alloc.cc (eh_alloc.cc:338)
+    n1: 72704 0x40112DD: call_init.part.0 (in /usr/lib/ld-2.32.so)
+     n1: 72704 0x40113C7: _dl_init (in /usr/lib/ld-2.32.so)
+      n0: 72704 0x40020C9: ??? (in /usr/lib/ld-2.32.so)
+ n1: 1024 0x4CDCE03: _IO_file_doallocate (in /usr/lib/libc-2.32.so)
+  n1: 1024 0x4CEB70F: _IO_doallocbuf (in /usr/lib/libc-2.32.so)
+   n1: 1024 0x4CEA8A7: _IO_file_overflow@@GLIBC_2.2.5 (in /usr/lib/libc-2.32.so)
+    n1: 1024 0x4CE9955: _IO_file_xsputn@@GLIBC_2.2.5 (in /usr/lib/libc-2.32.so)
+     n1: 1024 0x4CDE330: fwrite (in /usr/lib/libc-2.32.so)
+      n1: 1024 0x4A48FC7: sputn (streambuf:458)
+       n1: 1024 0x4A48FC7: _M_put (streambuf_iterator.h:315)
+        n1: 1024 0x4A48FC7: __write<char> (locale_facets.h:121)
+         n1: 1024 0x4A48FC7: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<unsigned long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, unsigned long) const (locale_facets.tcc:933)
+          n1: 1024 0x4A5758A: put (locale_facets.h:2380)
+           n1: 1024 0x4A5758A: std::ostream& std::ostream::_M_insert<unsigned long>(unsigned long) (ostream.tcc:73)
+            n1: 1024 0x10AB4E: my_vector<unsigned long>::prt() (my_vector_realization.hpp:223)
+             n1: 1024 0x10A391: my_vector<unsigned long>::print() (my_vector_realization.hpp:217)
+              n0: 1024 0x10A850: main (main.cpp:16)
+ n0: 488 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=11
+#-----------
+time=5017619
+mem_heap_B=74160
+mem_heap_extra_B=56
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=12
+#-----------
+time=5026020
+mem_heap_B=1456
+mem_heap_extra_B=48
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=13
+#-----------
+time=5026979
+mem_heap_B=432
+mem_heap_extra_B=40
+mem_stacks_B=0
+heap_tree=empty

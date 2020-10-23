@@ -6,23 +6,14 @@
 #include "my_vector.hpp"
 
 int main() {
-    my_vector<std::string> vec{"A", "B", "C", "D", "E"};
-    my_vector<std::string> vec2{vec};
-//    for (size_t i = 0; i < 1000000; ++i) {
-//        vec.push_back(std::to_string(i));
-//    }
-//    vec.print();
-    my_vector<size_t> real_vector{1, 2, 3, 4, 5, 6, 7};
-//    my_vector<std::string> vec2{17};
-
-//    vec = vec2;
-//    vec.insert(3, {"g", "n", "f", "p"});
-//std::cout << vec.back() << std::endl;
-
-    real_vector.insert(3, {111, 1112});
-    real_vector.print();
+//    my_vector<std::string> vec{"A", "B", "C", "D", "E"};
+    my_vector<size_t> int_vector{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17};
+    my_vector<size_t> int_vector2{100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 112, 14567, 56237};
+    std::vector<size_t> real_vector{1, 2, 3, 4, 5, 6, 7};
+    int_vector.insert(int_vector.end(), int_vector2.begin(), int_vector2.end());
+//    real_vector.insert
 //    real_vector.push_back(23);
-
-    vec2.print();
+    int_vector.print();
+//    vec2.print();
     return 0;
 }
