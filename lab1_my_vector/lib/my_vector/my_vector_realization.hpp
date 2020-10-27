@@ -219,11 +219,12 @@ void my_vector<T>::prt() {
     std::cout << std::endl;
 }
 
-//template<typename T>
-//template<typename ...Args>
-//T *my_vector<T>::emplace_back(Args &... args) {
-//    return nullptr;
-//}
+template<typename T>
+template<typename ...Args>
+T *my_vector<T>::emplace_back(Args &... args) {
+
+    return nullptr;
+}
 
 template<>
 [[maybe_unused]] void my_vector<std::string>::print() {

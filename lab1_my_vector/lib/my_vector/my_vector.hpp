@@ -9,7 +9,6 @@
 #define TEST_MY_VECTOR_H
 
 #include <memory>
-#include <cassert>
 #include <iostream>
 
 template<typename T>
@@ -75,8 +74,8 @@ public:
     [[maybe_unused]] bool empty();
 
 // INSERTIONS
-//    template<typename ...Args>
-//    [[maybe_unused]] T *emplace_back(Args &... args);
+    template<typename ...Args>
+    [[maybe_unused]] T *emplace_back(Args &... args);
 
     [[maybe_unused]] void push_back(T &&element);
 
