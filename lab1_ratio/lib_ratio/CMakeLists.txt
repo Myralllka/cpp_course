@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.17)
-project(lib_ratio)
 
-set(CMAKE_CXX_STANDARD 17)
+set(PROJECT_NAME lib_ratio)
+project(${PROJECT_NAME} CXX)
 
-add_library(lib_ratio SHARED library.cpp library.h)
+set(CMAKE_CXX_STANDARD 20)
+
+add_library(${PROJECT_NAME} SHARED ${CMAKE_CURRENT_SOURCE_DIR}/lib_ratio.cpp ${CMAKE_CURRENT_SOURCE_DIR}/lib_ratio.hpp)
+set_property(TARGET ${PROJECT_NAME} PROPERTY POSITION_INDEPENDENT_CODE ON)
