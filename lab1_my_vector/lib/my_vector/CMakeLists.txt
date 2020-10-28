@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.15)
 
 set(PROJECT_NAME my_vector)
 project(${PROJECT_NAME} CXX)
-set(CMAKE_CXX_COMPILER clang++)
 
 set(CMAKE_CXX_STANDARD 17)
 
