@@ -42,7 +42,7 @@ target_link_libraries(${PROJECT_NAME} Boost::program_options)
 
 include_directories(lib/my_vector)
 target_link_libraries(${PROJECT_NAME} my_vector)
-target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/k)
+target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/my_vector)
 # Sanitizers configuration
 if (ENABLE_SANITIZERS)
     set(SANITIZE_UNDEFINED ON)
