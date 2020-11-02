@@ -9,6 +9,8 @@
 int main() {
     if (test_constructor() != 0) {
         std::cout << "failed constructors: " << test_constructor() << std::endl;
+    } else {
+        std::cout << "success constructors"<< std::endl;
     }
 
     if (test_push() != 0) {

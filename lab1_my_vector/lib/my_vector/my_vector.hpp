@@ -33,7 +33,7 @@ public:
         }
     }
 
-    my_vector(std::initializer_list<T> el) : buffer_m{::operator new(sizeof(T) * el.size() * 2)},
+    my_vector(std::initializer_list<T> el) : buffer_m{new T[el.size()]},
                                              size_m{el.size()},
                                              capacity_m{el.size() * 2} {
         size_t i = 0;
@@ -122,17 +122,17 @@ public:
 // OPERATORS
     const T &operator[](size_t index) const;
 
-    bool operator==(const T& other);
+    bool operator==(const my_vector<T> &other);
 
-    bool operator<=(const T& other);
+    bool operator<=(const my_vector<T> &other);
 
-    bool operator>=(const T& other);
+    bool operator>=(const my_vector<T> &other);
 
-    bool operator<(const T& other);
+    bool operator<(const my_vector<T> &other);
 
-    bool operator>(const T& other);
+    bool operator>(const my_vector<T> &other);
 
-    bool operator!=(const T& other);
+    bool operator!=(const my_vector<T> &other);
 
     T &operator[](size_t index);
 
@@ -153,7 +153,7 @@ public:
 
     void swap(my_vector<T> other);
 
-    void print();
+//    void print();
 
     void shrink_to_fit();
 
