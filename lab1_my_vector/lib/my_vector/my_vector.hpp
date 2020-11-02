@@ -23,17 +23,17 @@ private:
     void double_capacity_if_bound(size_t sz = 0);
 
 public:
-    my_vector() : buffer_m(new T[1]), size_m{0}, capacity_m{1} {};
+    my_vector() : buffer_m(new T[2]), size_m{0}, capacity_m{2} {};
 
     explicit my_vector(size_t size, T init_val = T{}) : size_m{size},
                                                         capacity_m{size == 0 ? 2 : size} {
-        buffer_m = std::make_unique<T[]>(size);
+        buffer_m = std::make_unique<T[]>(capacity_m);
         for (size_t i = 0; i < size; ++i) {
             buffer_m[i] = init_val;
         }
     }
 
-    my_vector(std::initializer_list<T> el) : buffer_m{new T[el.size()]},
+    my_vector(std::initializer_list<T> el) : buffer_m{new T[el.size() * 2]},
                                              size_m{el.size()},
                                              capacity_m{el.size() * 2} {
         size_t i = 0;
@@ -48,8 +48,9 @@ public:
 
     my_vector(const my_vector &other) : size_m{other.size_m},
                                         capacity_m{other.capacity_m} {
+        capacity_m = other.capacity_m;
         buffer_m = std::make_unique<T[]>(capacity_m);
-
+        size_m = other.size_m;
         for (size_t i = 0; i < size_m; ++i) {
             buffer_m[i] = other.buffer_m[i];
         }
@@ -95,8 +96,8 @@ public:
 
     //[[maybe_unused]] void insert(const T *position, std::initializer_list<T> elements);
 
-    template<typename ...Args>
-    T *emplace_back(Args &... args);
+//    template<typename ...Args>
+//    T *emplace_back(Args &... args);
 
     void push_back(T &&element);
 

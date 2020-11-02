@@ -21,10 +21,6 @@ int main() {
         std::cout << "failed getters: " << test_getters() << std::endl;
     }
 
-    if (test_constructor() != 0) {
-        std::cout << "failed constructors: " << test_constructor() << std::endl;
-    }
-
     if (test_operators() != 0) {
         std::cout << "failed operators: " << test_operators() << std::endl;
     }
