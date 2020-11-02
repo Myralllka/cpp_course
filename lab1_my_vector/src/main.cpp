@@ -4,16 +4,38 @@
 #include <iostream>
 #include <vector>
 #include "my_vector.hpp"
+#include "test.h"
 
 int main() {
-//    my_vector<std::string> vec{"A", "B", "C", "D", "E"};
-    my_vector<size_t> int_vector{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17};
-    my_vector<size_t> int_vector2{100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 112, 14567, 56237};
-    std::vector<size_t> real_vector{1, 2, 3, 4, 5, 6, 7};
-    int_vector.insert(int_vector.end(), int_vector2.begin(), int_vector2.end());
-//    real_vector.insert
-//    real_vector.push_back(23);
-    int_vector.print();
-//    vec2.print();
+    if (test_constructor() != 0) {
+        std::cout << "failed constructors: " << test_constructor() << std::endl;
+    }
+
+    if (test_push() != 0) {
+        std::cout << "failed push: " << test_push() << std::endl;
+    }
+
+    if (test_getters() != 0) {
+        std::cout << "failed getters: " << test_getters() << std::endl;
+    }
+
+    if (test_constructor() != 0) {
+        std::cout << "failed constructors: " << test_constructor() << std::endl;
+    }
+
+    if (test_operators() != 0) {
+        std::cout << "failed operators: " << test_operators() << std::endl;
+    }
+
+    if (test_insertions() != 0) {
+        std::cout << "failed insertions: " << test_operators() << std::endl;
+    }
+
+    if (test_iterators() != 0) {
+        std::cout << "failed iterators: " << test_iterators() << std::endl;
+    }
+
+
+
     return 0;
 }

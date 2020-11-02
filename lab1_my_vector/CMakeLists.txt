@@ -33,12 +33,7 @@ include_directories(inc)
 add_subdirectory(lib/my_vector)
 
 # Project source compilation
-add_executable(${PROJECT_NAME} src/main.cpp)
-
-# Add external packages
-find_package(Boost 1.71.0 COMPONENTS program_options REQUIRED)
-include_directories(${Boost_INCLUDE_DIR})
-target_link_libraries(${PROJECT_NAME} Boost::program_options)
+add_executable(${PROJECT_NAME} src/main.cpp inc/test.h src/test.cpp)
 
 include_directories(lib/my_vector)
 target_link_libraries(${PROJECT_NAME} my_vector)

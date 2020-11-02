@@ -53,12 +53,12 @@ template<typename T>
 }
 
 template<typename T>
-[[maybe_unused]] bool my_vector<T>::empty() {
-    return size_m == 0;
+[[maybe_unused]] void my_vector<T>::clear() {
+    erase(begin(), end());
 }
 
 template<typename T>
-[[maybe_unused]] void my_vector<T>::clear() {
+[[maybe_unused]] void my_vector<T>::fast_clear() {
     size_m = 0;
 }
 
@@ -83,13 +83,67 @@ T &my_vector<T>::operator[](size_t index) {
 }
 
 template<typename T>
+my_vector<T> &my_vector<T>::operator=(const my_vector &other) {
+    my_vector<T> temp{other};
+    swap(temp);
+    return *this;
+}
+
+template<typename T>
+bool my_vector<T>::operator==(const T &other) {
+    if (size_m != other.size_m) {
+        return false;
+    }
+    for (size_t i = 0; i < size_m; ++i) {
+        if (operator[](i) != other[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+template<typename T>
+bool my_vector<T>::operator!=(const T &other) {
+    return !operator==(other);
+}
+
+template<typename T>
+bool my_vector<T>::operator>=(const T &other) {
+    return !operator<(other);
+}
+
+template<typename T>
+bool my_vector<T>::operator<=(const T &other) {
+    return operator<(other) or operator==(other);
+}
+
+template<typename T>
+bool my_vector<T>::operator<(const T &other) {
+    if (size_m > other.size_m) {
+        return false;
+    } else if (size_m == other.size_m) {
+        for (size_t i = 0; i < size_m; ++i) {
+            if (operator[](i) >= other[i]) {
+                return false;
+            }
+        }
+    }
+    return true;
+
+}
+
+template<typename T>
+bool my_vector<T>::operator>(const T &other) {
+    return !operator<=(other);
+}
+
+template<typename T>
 [[maybe_unused]] const T &my_vector<T>::at(size_t index) const {
     if (index < 0 or index > size_m) {
         throw ArrayOutOfBoundsException();
     }
     return buffer_m[index];
 }
-
 
 template<typename T>
 [[maybe_unused]] T &my_vector<T>::at(size_t index) {
@@ -102,7 +156,9 @@ template<typename T>
 template<typename T>
 void my_vector<T>::double_capacity_if_bound(size_t i) {
     if (size_m + i == capacity_m) {
-        std::cout << "DOUBLE" << std::endl;
+#ifdef DEBUG
+        std::cout << "DOUBLE CAPACITY" << std::endl;
+#endif
         capacity_m = size_m * 2;
         std::unique_ptr<T[]> new_buffer = std::make_unique<T[]>(capacity_m);
         buffer_m.swap(new_buffer);
@@ -122,7 +178,7 @@ template<typename T>
 }
 
 template<typename T>
-const T *my_vector<T>::begin() const {
+const T *my_vector<T>::cbegin() const {
     return &buffer_m[0];
 }
 
@@ -132,20 +188,13 @@ T *my_vector<T>::begin() {
 }
 
 template<typename T>
-const T *my_vector<T>::end() const {
+const T *my_vector<T>::cend() const {
     return &buffer_m[size_m];
 }
 
 template<typename T>
 T *my_vector<T>::end() {
     return &buffer_m[size_m];
-}
-
-template<typename T>
-my_vector<T> &my_vector<T>::operator=(const my_vector &other) {
-    my_vector<T> temp{other};
-    swap(temp);
-    return *this;
 }
 
 template<typename T>
@@ -191,14 +240,13 @@ template<typename T>
         buffer_m[start + (end - begin) + i] = tmp_buffer[i];
     }
     size_m += (end - begin);
-    std::cout <<  capacity_m << std::endl;
 }
 
-template<typename T>
-[[maybe_unused]] void my_vector<T>::insert([[maybe_unused]] const T *position,
-                                           [[maybe_unused]] std::initializer_list<T> elements) {
-    insert(position, elements.begin(), elements.end());
-}
+//template<typename T>
+//[[maybe_unused]] void my_vector<T>::insert([[maybe_unused]] const T *position,
+//                                           [[maybe_unused]] std::initializer_list<T> elements) {
+//    insert(position, elements.begin(), elements.end());
+//}
 
 template<typename T>
 [[maybe_unused]] void my_vector<T>::pop_back() {
@@ -224,6 +272,16 @@ template<typename ...Args>
 T *my_vector<T>::emplace_back(Args &... args) {
 
     return nullptr;
+}
+
+template<typename T>
+void my_vector<T>::resize(size_t new_sz) {
+    // TODO
+}
+
+template<typename T>
+bool my_vector<T>::is_empty() {
+    return size_m == 0;
 }
 
 template<>
