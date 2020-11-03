@@ -18,8 +18,6 @@ private:
     size_t size_m;
     size_t capacity_m;
 
-    void prt();
-
     void double_capacity_if_bound(size_t sz = 0);
 
 public:
@@ -75,15 +73,15 @@ public:
 
     [[nodiscard]] size_t capacity() const;
 
-    [[nodiscard]] size_t max_size() const;
+    [[maybe_unused]] [[nodiscard]] size_t max_size() const;
 
     T &front();
 
     T &back();
 
-    const T &front() const;
+    [[maybe_unused]] const T &front() const;
 
-    const T &back() const;
+    [[maybe_unused]] const T &back() const;
 
     bool is_empty();
 
@@ -94,7 +92,7 @@ public:
 
     void insert(const T *position, const T *begin, const T *end);
 
-    //[[maybe_unused]] void insert(const T *position, std::initializer_list<T> elements);
+    void insert(const T *position, std::initializer_list<T> elements);
 
 //    template<typename ...Args>
 //    T *emplace_back(Args &... args);
@@ -121,6 +119,8 @@ public:
     T *end();
 
 // OPERATORS
+    my_vector<T> &operator=(const my_vector &other);
+
     const T &operator[](size_t index) const;
 
     bool operator==(const my_vector<T> &other);
@@ -141,8 +141,6 @@ public:
 
     T &at(size_t index);
 
-    my_vector<T> &operator=(const my_vector &other);
-
 // OTHER
     void pop_back();
 
@@ -153,8 +151,6 @@ public:
     void resize(size_t new_sz);
 
     void swap(my_vector<T> other);
-
-//    void print();
 
     void shrink_to_fit();
 

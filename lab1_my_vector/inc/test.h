@@ -7,8 +7,6 @@
 
 int test_constructor();
 
-int test_push();
-
 int test_getters();
 
 int test_operators();
