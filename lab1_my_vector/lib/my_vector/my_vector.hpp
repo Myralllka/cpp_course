@@ -39,10 +39,15 @@ public:
             buffer_m[i++] = std::move(entry);
         }
     }
-//TODO
-//    my_vector(const T *begin, const T *end) {
-//
-//    }
+
+    my_vector(const my_vector<T> *bgn, const my_vector<T> *nd) : size_m(0) {
+        capacity_m = (nd - bgn) * 2;
+        buffer_m = std::make_unique<T>(capacity_m);
+        for (T* el = bgn; el != nd; ++el) {
+            buffer_m[size_m++] = *el;
+        }
+
+    }
 
     my_vector(const my_vector &other) : size_m{other.size_m},
                                         capacity_m{other.capacity_m} {
@@ -94,8 +99,8 @@ public:
 
     void insert(const T *position, std::initializer_list<T> elements);
 
-//    template<typename ...Args>
-//    T *emplace_back(Args &... args);
+    template<typename ...Args>
+    T *emplace_back(Args &&... args);
 
     void push_back(T &&element);
 
@@ -103,11 +108,9 @@ public:
 
 // ERASEMENTS
 //TODO
-//    T *erase(T *position);
-//
-//    T *erase(const T *position);
-//
-//    T *erase(const T *position, const T *begin, const T *end);
+    T *erase(T *position);
+
+    T *erase(const T *cbegin, const T *cend);
 
 // ITERATORS
     [[nodiscard]] const T *cbegin() const;
@@ -139,7 +142,11 @@ public:
 
     const T &at(size_t index) const;
 
+    const T &at(ssize_t index) const = delete;
+
     T &at(size_t index);
+
+    T &at(ssize_t index) = delete;
 
 // OTHER
     void pop_back();
@@ -150,7 +157,7 @@ public:
 
     void resize(size_t new_sz);
 
-    void swap(my_vector<T> other);
+    void swap(my_vector<T> &other);
 
     void shrink_to_fit();
 

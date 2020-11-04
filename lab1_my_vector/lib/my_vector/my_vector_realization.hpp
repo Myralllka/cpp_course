@@ -7,7 +7,7 @@
 
 #ifndef TEST_MY_VECTOR_REALIZATION_H
 #define TEST_MY_VECTOR_REALIZATION_H
-#define DEBUG
+//#define DEBUG
 
 #include <iostream>
 #include <cstring>
@@ -100,7 +100,7 @@ void my_vector<T>::reserve(size_t size) {
     }
     capacity_m = size;
     std::unique_ptr<T[]> new_buffer = std::make_unique<T[]>(size);
-    buffer_m.reset(new_buffer);
+    buffer_m.swap(new_buffer);
 }
 
 template<typename T>
@@ -166,7 +166,7 @@ bool my_vector<T>::operator<=(const my_vector<T> &other) {
 #ifdef DEBUG
     std::cout << "bool my_vector<T>::operator<=(const my_vector<T> &other)" << std::endl;
 #endif
-    return operator<(other) or operator==(other);
+    return operator==(other) or operator<(other);
 }
 
 template<typename T>
@@ -178,13 +178,12 @@ bool my_vector<T>::operator<(const my_vector<T> &other) {
         return false;
     } else if (size_m == other.size_m) {
         for (size_t i = 0; i < size_m; ++i) {
-            if (operator[](i) >= other[i]) {
+            if (operator[](i) > other[i]) {
                 return false;
             }
         }
     }
-    return true;
-
+    return !operator==(other);
 }
 
 template<typename T>
@@ -200,7 +199,7 @@ const T &my_vector<T>::at(size_t index) const {
 #ifdef DEBUG
     std::cout << "const T &my_vector<T>::at(size_t index) const" << std::endl;
 #endif
-    if (index < 0 or index > size_m) {
+    if (index > size_m) {
         throw ArrayOutOfBoundsException();
     }
     return buffer_m[index];
@@ -211,7 +210,7 @@ T &my_vector<T>::at(size_t index) {
 #ifdef DEBUG
     std::cout << "T &my_vector<T>::at(size_t index)" << std::endl;
 #endif
-    if (index < 0 or index > size_m) {
+    if (index > size_m) {
         throw ArrayOutOfBoundsException();
     }
     return buffer_m[index];
@@ -280,7 +279,7 @@ T *my_vector<T>::end() {
 }
 
 template<typename T>
-void my_vector<T>::swap(my_vector<T> other) {
+void my_vector<T>::swap(my_vector<T> &other) {
 #ifdef DEBUG
     std::cout << "void my_vector<T>::swap(my_vector<T> other)" << std::endl;
 #endif
@@ -349,29 +348,25 @@ void my_vector<T>::pop_back() {
     size_m -= 1;
 }
 
-//template<>
-//void my_vector<size_t>::print() {
-//    prt();
-//}
-
-//template<typename T>
-//void my_vector<T>::prt() {
-//    for (size_t i = 0; i < size_m; ++i) {
-//        std::cout << buffer_m[i] << ", ";
-//    }
-//    std::cout << std::endl;
-//}
-
-//template<typename T>
-//template<typename ...Args>
-//T *my_vector<T>::emplace_back(Args &... args) {
-//
-//    return nullptr;
-//}
+template<typename T>
+template<typename ...Args>
+T *my_vector<T>::emplace_back(Args &&... args) {
+    double_capacity_if_bound();
+    // TODO
+//    return buffer_m[size_m];
+}
 
 template<typename T>
 void my_vector<T>::resize(size_t new_sz) {
-    // TODO
+    if (new_sz <= capacity_m) {
+        size_m = new_sz;
+    } else {
+        std::unique_ptr<T[]> new_buffer = std::make_unique<T[]>(new_sz);
+        for (size_t i = 0; i < new_sz; ++i) {
+            new_buffer[i] = buffer_m[i];
+        }
+        buffer_m.swap(new_buffer);
+    }
 }
 
 template<typename T>
@@ -379,9 +374,20 @@ bool my_vector<T>::is_empty() {
     return size_m == 0;
 }
 
-//template<>
-//void my_vector<std::string>::print() {
-//    prt();
-//}
+template<typename T>
+T *my_vector<T>::erase(T *position) {
+    return erase(position, position + 1);
+}
+
+template<typename T>
+T *my_vector<T>::erase(const T *bgn, const T *nd) {
+    auto n = nd - bgn;
+    for (size_t counter = bgn - begin(); counter < size_m - n; ++counter) {
+        buffer_m[counter] = std::move(buffer_m[counter + n]);
+    }
+    size_m -= n;
+    capacity_m -= n;
+    return &buffer_m[n + 1];
+}
 
 #endif //TEST_MY_VECTOR_REALIZATION_H

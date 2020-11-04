@@ -5,35 +5,41 @@
 #include "test.h"
 
 int main() {
-    if (test_constructor() != 0) {
-        std::cout << "failed constructors: " << test_constructor() << std::endl;
-    } else {
-        std::cout << "success constructors"<< std::endl;
-    }
-
-    if (test_getters() != 0) {
-        std::cout << "failed getters: " << test_getters() << std::endl;
-    } else {
-        std::cout << "success getters"<< std::endl;
-    }
-
-    if (test_operators() != 0) {
-        std::cout << "failed operators: " << test_operators() << std::endl;
-    } else {
-        std::cout << "success operators"<< std::endl;
-    }
-
-    if (test_iterators() != 0) {
-        std::cout << "failed iterators: " << test_iterators() << std::endl;
-    } else {
-        std::cout << "success iterators"<< std::endl;
-    }
-
-    if (test_insertions() != 0) {
-        std::cout << "failed insertions: " << test_operators() << std::endl;
-    } else {
-        std::cout << "success insertions"<< std::endl;
-    }
+    auto a = test_constructor();
+    if (a != 0) {
+        std::cout << "failed constructors: " << a << std::endl;
+        return -1;
+    } else
+        std::cout << "success constructors" << std::endl;
+    a = test_getters();
+    if (a != 0) {
+        std::cout << "failed getters: " << a << std::endl;
+        return -1;
+    } else
+        std::cout << "success getters" << std::endl;
+    a = test_operators();
+    if (a != 0) {
+        std::cout << "failed operators: " << a << std::endl;
+        return -1;
+    } else
+        std::cout << "success operators" << std::endl;
+    a = test_iterators();
+    if (a != 0) {
+        std::cout << "failed iterators: " << a << std::endl;
+        return -1;
+    } else
+        std::cout << "success iterators" << std::endl;
+    a = test_insertions();
+    if (a != 0) {
+        std::cout << "failed insertions: " << a << std::endl;
+    } else
+        std::cout << "success insertions" << std::endl;
+    a = test_other();
+    if (a != 0) {
+        std::cout << "failed other: " << a << std::endl;
+        return -1;
+    } else
+        std::cout << "success other" << std::endl;
 
     return 0;
 }

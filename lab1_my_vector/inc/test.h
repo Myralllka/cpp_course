@@ -14,4 +14,7 @@ int test_operators();
 int test_insertions();
 
 int test_iterators();
+
+int test_other();
+
 #endif //TEST_TEST_H
