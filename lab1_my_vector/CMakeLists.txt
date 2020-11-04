@@ -6,8 +6,7 @@ project(${PROJECT_NAME} CXX)
 set(CMAKE_CXX_STANDARD 17)
 
 # Options
-option(ENABLE_PVS_STUDIO "Check using command-line PVS-Studio." ON)
-option(WARNINGS_AS_ERRORS "Treat compiler warnings as errors." ON)
+option(ENABLE_PVS_STUDIO "Check using command-line PVS-Studio." OFF)
 option(ENABLE_SANITIZERS "Use sanitizers to detect errors." OFF)
 option(ENABLE_CONAN "Use Conan as a package manager." OFF)
 
@@ -21,7 +20,7 @@ if (MSVC)
     add_compile_options(/W4 /WX)
 else ()
     # lots of warnings and all warnings as errors
-    add_compile_options(-Wall -Wextra -pedantic -Werror -Werror=vla)
+    add_compile_options(-Wall -Wextra -pedantic -Werror -Werror=vla -Wno-stringop-overflow)
 endif ()
 # Include fixed CMake configuration
 include(cmake/config.cmake)
