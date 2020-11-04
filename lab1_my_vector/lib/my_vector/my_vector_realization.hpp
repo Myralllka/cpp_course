@@ -320,9 +320,9 @@ void my_vector<T>::insert(const T *position, const T *begin, const T *end) {
     std::cout << "void my_vector<T>::insert(const T *position, const T *begin, const T *end)" << std::endl;
 #endif
     size_t start = position - &buffer_m[0];
-    size_t sz = &buffer_m[size_m] - position;
+    size_t sz = this->end() - position;
     double_capacity_if_bound(end - begin); // at this moment position can be not relevant anymore
-    std::unique_ptr<T[]> tmp_buffer = std::make_unique<T[]>(sz);
+    auto tmp_buffer = std::make_unique<T[]>(sz);
     std::copy(buffer_m.get() + start, buffer_m.get() + size_m, tmp_buffer.get());
     size_t counter = 0;
     for (const T *i = begin; i != end; ++i) {
@@ -348,13 +348,13 @@ void my_vector<T>::pop_back() {
     size_m -= 1;
 }
 
-template<typename T>
-template<typename ...Args>
-T *my_vector<T>::emplace_back(Args &&... args) {
-    double_capacity_if_bound();
-    // TODO
+//template<typename T>
+//template<typename ...Args>
+//T *my_vector<T>::emplace_back(Args &&... args) {
+//    double_capacity_if_bound();
+//     TODO
 //    return buffer_m[size_m];
-}
+//}
 
 template<typename T>
 void my_vector<T>::resize(size_t new_sz) {
