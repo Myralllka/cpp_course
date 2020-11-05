@@ -131,6 +131,14 @@ const ratio_t ratio_t::operator--(int) {
     return copy;
 }
 
+ratio_t ratio_t::operator+() const {
+    return ratio_t{std::abs(numerator), denominator};
+}
+
+ratio_t ratio_t::operator-() const {
+    return ratio_t{-numerator, denominator};
+}
+
 ratio_t operator+(ratio_t lhs, const ratio_t &rhs) {
     return lhs += rhs;
 }

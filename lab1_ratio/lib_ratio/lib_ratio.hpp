@@ -81,6 +81,10 @@ public:
 
     ratio_t &operator/=(const ratio_t &rhs);
 
+    ratio_t operator+() const;
+
+    ratio_t operator-() const;
+
     ratio_t &operator++();
 
     const ratio_t operator++(int);

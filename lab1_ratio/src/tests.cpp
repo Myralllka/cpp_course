@@ -62,3 +62,16 @@ int operators_test() {
     if (static_cast<double>(d) - r >= std::numeric_limits<double>::epsilon()) return 13;
     return 0;
 }
+
+int algo_test() {
+    a = ratio_t{};
+    b = ratio_t{1, 2};
+    c = ratio_t{333, 999};
+    d = ratio_t{1, 12};
+    e = ratio_t{0, 0};
+    auto neg = ratio_t{-2, 3};
+    if (rabs(neg) != ratio_t{2, 3}) return 1;
+    if (rmax(b, c) != b) return 2;
+    if (rmin(b, c) != c) return 3;
+    return 0;
+}

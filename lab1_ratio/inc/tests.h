@@ -7,7 +7,10 @@
 
 #include "lib_ratio.hpp"
 
+int algo_test();
+
 int constructors_setters_getters_test();
+
 int operators_test();
 
 #endif //LAB1_RATIO_TESTS_H
