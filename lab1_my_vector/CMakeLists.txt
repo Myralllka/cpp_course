@@ -23,7 +23,7 @@ else ()
     add_compile_options(-Wall -Wextra -pedantic -Werror -Werror=vla -Wno-stringop-overflow)
 endif ()
 # Include fixed CMake configuration
-include(cmake/config.cmake)
+include(../cmake/config.cmake)
 
 # Include headers
 include_directories(inc)
@@ -53,7 +53,7 @@ endif ()
 #####################################
 # create own target for library
 if (ENABLE_PVS_STUDIO)
-    include(cmake/PVS-Studio.cmake)
+    include(../cmake/PVS-Studio.cmake)
     SET(CMAKE_EXPORT_COMPILE_COMMANDS ON)
     # create own target for library
     pvs_studio_add_target(
