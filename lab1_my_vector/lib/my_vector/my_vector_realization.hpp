@@ -15,6 +15,7 @@
 #include "my_vector.hpp"
 #include "exceptions/out_of_bound_exeption.h"
 
+
 template<typename T>
 size_t my_vector<T>::size() const {
 #ifdef DEBUG
@@ -263,11 +264,28 @@ T *my_vector<T>::begin() {
 }
 
 template<typename T>
+back_iterator<T> my_vector<T>::rbegin() {
+#ifdef DEBUG
+    std::cout << "T *my_vector<T>::rbegin()" << std::endl;
+#endif
+    biter_m = back_iterator<T>{begin(), end()};
+    return biter_m;
+}
+
+template<typename T>
 const T *my_vector<T>::cend() const {
 #ifdef DEBUG
     std::cout << "const T *my_vector<T>::cend() const" << std::endl;
 #endif
     return &buffer_m[size_m];
+}
+
+template<typename T>
+back_iterator<T> my_vector<T>::rend() {
+#ifdef DEBUG
+    std::cout << "T *my_vector<T>::rend()" << std::endl;
+#endif
+    return biter_m;
 }
 
 template<typename T>
@@ -383,10 +401,9 @@ template<typename T>
 T *my_vector<T>::erase(const T *bgn, const T *nd) {
     auto n = nd - bgn;
     for (size_t counter = bgn - begin(); counter < size_m - n; ++counter) {
-        buffer_m[counter] = std::move(buffer_m[counter + n]);
+        buffer_m[counter] = buffer_m[counter + n];
     }
     size_m -= n;
-    capacity_m -= n;
     return &buffer_m[n + 1];
 }
 

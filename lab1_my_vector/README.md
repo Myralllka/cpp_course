@@ -4,9 +4,8 @@
 
  - [Morhunenko Mykola](https://github.com/Myralllka)
 
-## Prerequisites
-
 ## Installing
+clone the repo
 
 ## Usage
 

@@ -118,7 +118,9 @@ int test_insertions() {
     mv_1.push_back(b);
     if (mv_1.back() != b) return 4;
     mv_1.push_back(std::move(b));
-
+//    for (auto el = int_1.rbegin().begin(); el != int_1.rend().end(); ++el) {
+//        std::cout << el << std::endl;
+//    }
 //    mv_copy.emplace_back();
     return 0;
 }

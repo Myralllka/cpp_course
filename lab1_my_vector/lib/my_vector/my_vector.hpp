@@ -12,11 +12,62 @@
 #include <iostream>
 
 template<typename T>
+class back_iterator {
+private:
+    T *begin_m;
+    T *end_m;
+    size_t index_m;
+public:
+
+    back_iterator() = default;
+
+    back_iterator(T *begin, T *end) : begin_m(begin), end_m(end) {
+        index_m = 0;
+    };
+
+    ~back_iterator() = default;
+
+    T &operator++() {
+        index_m--;
+        return *this;
+    }
+
+    T operator--() {
+        index_m++;
+        return *this;
+    }
+
+    const T operator++(int) {
+        T copy{*this};
+        --(*this);
+        return copy;
+    }
+
+    const T operator--(int) {
+        T copy{*this};
+        ++(*this);
+        return copy;
+    }
+
+    T *begin() {
+        return end;
+    }
+
+    T *end() {
+        return begin;
+    }
+
+    auto operator<=>(const back_iterator<T> &) const = default;
+};
+
+
+template<typename T>
 class my_vector {
 private:
     std::unique_ptr<T[]> buffer_m;
     size_t size_m;
     size_t capacity_m;
+    back_iterator<T> biter_m{};
 
     void double_capacity_if_bound(size_t sz = 0);
 
@@ -43,7 +94,7 @@ public:
     my_vector(const my_vector<T> *bgn, const my_vector<T> *nd) : size_m(0) {
         capacity_m = (nd - bgn) * 2;
         buffer_m = std::make_unique<T>(capacity_m);
-        for (T* el = bgn; el != nd; ++el) {
+        for (T *el = bgn; el != nd; ++el) {
             buffer_m[size_m++] = *el;
         }
 
@@ -99,8 +150,8 @@ public:
 
     void insert(const T *position, std::initializer_list<T> elements);
 
-    template<typename ...Args>
-    T *emplace_back(Args &&... args);
+//    template<typename ...Args>
+//    T *emplace_back(Args &&... args);
 
     void push_back(T &&element);
 
@@ -115,9 +166,13 @@ public:
 // ITERATORS
     [[nodiscard]] const T *cbegin() const;
 
+    back_iterator<T> rbegin();
+
     T *begin();
 
     [[nodiscard]] const T *cend() const;
+
+    back_iterator<T> rend();
 
     T *end();
 

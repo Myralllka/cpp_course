@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.15)
 set(PROJECT_NAME my_vector)
 project(${PROJECT_NAME} CXX)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 add_library(${PROJECT_NAME} SHARED ${CMAKE_CURRENT_SOURCE_DIR}/my_vector.cpp ${CMAKE_CURRENT_SOURCE_DIR}/my_vector.hpp)
 set_property(TARGET ${PROJECT_NAME} PROPERTY POSITION_INDEPENDENT_CODE ON)
